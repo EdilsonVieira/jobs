@@ -1,7 +1,7 @@
 
-async function secondTick() {
-    let color = getJobColor(__filename);
-    console.log(color.fg,color.bg,`secondTick: ${new Date()}`,color.rs);
+async function secondTick(job) {
+    let color = job.color;
+    console.log(color.fg,color.bg,`${job.name}: ${new Date()}`,color.rs);
 }
 
 module.exports = {

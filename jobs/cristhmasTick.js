@@ -1,6 +1,6 @@
-async function cristhmasTick() {
-    let color = getJobColor(__filename);
-    console.log(color.fg,color.bg,`cristhmasTick: ${new Date()}`,color.rs);
+async function cristhmasTick(job) {
+    let color = job.color;
+    console.log(color.fg,color.bg,`${job.name}: ${new Date()} - ${job.title}`,color.rs);
 }
 
 module.exports = {

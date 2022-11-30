@@ -1,6 +1,6 @@
-async function moonTick() {
-    let color = getJobColor(__filename);
-    console.log(color.fg,color.bg,`moonTick: ${new Date()}`,color.rs);
+async function moonTick(job) {
+    let color = job.color;
+    console.log(color.fg,color.bg,`${job.name}: ${new Date()}`,color.rs);
 }
 
 module.exports = {

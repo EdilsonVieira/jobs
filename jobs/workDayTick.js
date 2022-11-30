@@ -1,6 +1,7 @@
-async function workDayTick() {
-    let color = getJobColor(__filename);
-    console.log(color.fg,color.bg,`workDayTick: ${new Date()}`,color.rs);
+
+async function workDayTick(job) {
+    let color = job.color;
+    console.log(color.fg,color.bg,`${job.name}: ${new Date()}`,color.rs);
 }
 
 module.exports = {

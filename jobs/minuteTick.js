@@ -1,6 +1,10 @@
-async function minuteTick() {
-    let color = getJobColor(__filename);
-    console.log(color.fg,color.bg,`minuteTick: ${new Date()}`,color.rs);
+async function minuteTick(job) {
+    try {
+        let color = job.color;
+        consoe.log(color.fg,color.bg,`${job.name}: ${new Date()}`,color.rs);            
+    } catch (error) {
+        console.log(error);
+    }
 }
 
 module.exports = {

@@ -67,18 +67,10 @@ const jobs = [
 
 jobs.forEach((job)=>{
     if (job.enabled) {
-        schedule.scheduleJob(job.prog, job.func);
+        job.color.rs = cor.Reset;
+        schedule.scheduleJob(job.prog, job.func.bind(null,job));
     }
 })
 
-const getJobColor = function (fileName) {
-    var path = require('path');
-    var scriptName = path.basename(fileName).split('.')[0];
-    let j = jobs.find((x)=>x.name == scriptName);
-    j.color.rs = cor.Reset;
-    return j.color;
-}
-
-global.getJobColor = getJobColor;
 
 
