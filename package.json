@@ -1,0 +1,14 @@
+{
+    "name": "jobs",
+    "version": "1.0.0",
+    "description": "Carga de jobs",
+    "main": "index.js",
+    "scripts": {
+        "test": "test"
+    },
+    "author": "Edilson Vieira",
+    "license": "MIT",
+    "dependencies": {
+        "node-schedule": "^1.3.3"
+    }
+}
