@@ -1,9 +1,9 @@
 async function minuteTick(job) {
+    let color = job.color;
     try {
-        let color = job.color;
-        consoe.log(color.fg,color.bg,`${job.name}: ${new Date()}`,color.rs);            
+        console.log(color.fg,color.bg,`${job.name}: ${new Date()} - ${job.title}`,color.rs);
     } catch (error) {
-        console.log(error);
+        console.log(color.fg,color.bg,error,color.rs);
     }
 }
 
