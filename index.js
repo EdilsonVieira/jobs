@@ -16,6 +16,12 @@ const jobs = [
         enabled: false
     },
     {
+        name: `fiveSecondsTick`, title: `Five seconds tick`, prog: `*/5 * * * * *`, 
+        func: require('./jobs/fiveSecondsTick').fiveSecondsTick, 
+        color: {fg: cor.FgGreen, bg: cor.BgWhite}, 
+        enabled: true
+    },
+    {
         name: `tenSecondsTick`, title: `Ten seconds tick`, prog: `*/10 * * * * *`, 
         func: require('./jobs/tenSecondsTick').tenSecondsTick, 
         color: {fg: cor.FgBlack, bg: cor.BgCyan}, 
@@ -65,12 +71,43 @@ const jobs = [
     },
 ]
 
+// Função para aguardar <ms> milisegundos (usada nos testes) ...
+function sleep(ms) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
+global.sleep = sleep;
+
+async function jobExecuter(job) {
+    let color = job.color;
+    let startTime = new Date();
+    try {
+        console.log(`\n`);
+        console.log(color.fg,color.bg,`Job ${job.name} started at ${startTime} - ${job.title}`,color.rs);
+        //********************************
+        //* Execução da função do job em si
+        await job.func(job);
+        //********************************
+        let endTime = new Date();
+        let elapsed = Math.abs(endTime - startTime) / 1000;
+        console.log(color.fg,color.bg,`Job ${job.name} ended at ${endTime}. Elapsed: ${elapsed}s`,color.rs);
+    } catch (error) {
+        let errorTime = new Date();
+        let elapsed = Math.abs(errorTime - startTime) / 1000;
+        console.log(color.fg,color.bg,`Job ${job.name} ended with error at ${errorTime}. Elapsed: ${elapsed}s`,color.rs);
+        console.log(color.fg,color.bg,error,color.rs);
+    }
+}
+
 jobs.forEach((job)=>{
     if (job.enabled) {
         job.color.rs = cor.Reset;
-        schedule.scheduleJob(job.prog, job.func.bind(null,job));
+        schedule.scheduleJob(job.prog, jobExecuter.bind(null,job));
     }
 })
+
+console.log('\n');
+console.log(`>>> ${jobs.length} jobs scheduled <<<`);
+console.log('\n');
 
 
 

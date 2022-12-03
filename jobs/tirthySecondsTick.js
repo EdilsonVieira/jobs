@@ -1,7 +1,8 @@
 
 async function tirthySecondsTick(job) {
     let color = job.color;
-    console.log(color.fg,color.bg,`${job.name}: ${new Date()} - ${job.title}`,color.rs);
+    console.log(color.fg,color.bg,`Executing ${job.name}...`,color.rs);
+    await sleep(10000);
 }
 
 module.exports = {
