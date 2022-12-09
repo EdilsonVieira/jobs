@@ -1,7 +1,6 @@
 
 async function tenSecondsTick(job) {
-    let color = job.color;
-    console.log(color.fg,color.bg,`Executing ${job.name}...`,color.rs);
+    job.log(`Executing with log function ${job.name}...`);
     await sleep(2500);
 }
 

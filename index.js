@@ -16,10 +16,16 @@ const jobs = [
         enabled: false
     },
     {
+        name: `otherTick`, title: `Segundo tick`, prog: `*/1 * * * * *`, 
+        func: require('./jobs/otherTick').otherTick, 
+        color: {fg: cor.FgBlack, bg: cor.BgWhite}, 
+        enabled: false
+    },
+    {
         name: `fiveSecondsTick`, title: `Five seconds tick`, prog: `*/5 * * * * *`, 
         func: require('./jobs/fiveSecondsTick').fiveSecondsTick, 
         color: {fg: cor.FgGreen, bg: cor.BgWhite}, 
-        enabled: true
+        enabled: false
     },
     {
         name: `tenSecondsTick`, title: `Ten seconds tick`, prog: `*/10 * * * * *`, 
@@ -75,7 +81,12 @@ const jobs = [
 function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
+
 global.sleep = sleep;
+
+function log(msg) {
+    conso
+}
 
 async function jobExecuter(job) {
     let color = job.color;
@@ -101,6 +112,7 @@ async function jobExecuter(job) {
 jobs.forEach((job)=>{
     if (job.enabled) {
         job.color.rs = cor.Reset;
+        job.log = (msg) => { console.log(job.color.fg,job.color.bg,msg,job.color.rs) };
         schedule.scheduleJob(job.prog, jobExecuter.bind(null,job));
     }
 })
